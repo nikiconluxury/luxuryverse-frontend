@@ -29,8 +29,18 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
 
   return (
     <>
+    <div className="hero-wrapper hero-1-store">
+    <div className="hero-bg-gradient-store">
+    </div>
+    <div className="ripple-shape-store">
+       <span className="ripple-1-store"></span>
+       <span className="ripple-2-store"></span>
+       <span className="ripple-3-store"></span>
+       <span className="ripple-4-store"></span>
+       <span className="ripple-5-store"></span>
+    </div>
       <div
-        className="content-container flex flex-col small:flex-row small:items-start py-6 relative"
+        className="content-container flex flex-col small:flex-row small:items-start py-40 relative"
         data-testid="product-container"
       >
         <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
@@ -41,7 +51,8 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           <ImageGallery images={product?.images || []} />
         </div>
         <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
-          <ProductOnboardingCta />
+          {/* <ProductInfo product={product} />
+          <ProductTabs product={product} /> */}
           <Suspense
             fallback={
               <ProductActions
@@ -62,7 +73,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
         <Suspense fallback={<SkeletonRelatedProducts />}>
           <RelatedProducts product={product} countryCode={countryCode} />
         </Suspense>
-      </div>
+      </div></div>
     </>
   )
 }

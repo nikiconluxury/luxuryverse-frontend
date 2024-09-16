@@ -55,6 +55,7 @@ const FilterRadioGroup = ({
               )}
               data-testid="radio-label"
               data-active={i.value === value}
+              style={{ color: "white" }}
             >
               {i.label}
             </Label>

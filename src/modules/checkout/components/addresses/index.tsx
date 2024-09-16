@@ -50,11 +50,12 @@ const Addresses = ({
   const [message, formAction] = useFormState(setAddresses, null)
 
   return (
-    <div className="bg-white">
+    <div className="bg-transparent">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
           className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
+          // style={{'color': 'black'}}//TODO: remove this when checkout upgraded
         >
           Shipping Address
           {!isOpen && <CheckCircleSolid />}
@@ -81,7 +82,7 @@ const Addresses = ({
               onChange={toggleSameAsBilling}
               cart={cart}
             />
-
+{/* 
             {!sameAsSBilling && (
               <div>
                 <Heading
@@ -93,7 +94,7 @@ const Addresses = ({
 
                 <BillingAddress cart={cart} countryCode={countryCode} />
               </div>
-            )}
+            )} */}
             <SubmitButton className="mt-6" data-testid="submit-address-button">Continue to delivery</SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
@@ -105,39 +106,39 @@ const Addresses = ({
               <div className="flex items-start gap-x-8">
                 <div className="flex items-start gap-x-1 w-full">
                   <div className="flex flex-col w-1/3" data-testid="shipping-address-summary">
-                    <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                    <Text className="txt-medium-plus text-white mb-1">
                       Shipping Address
                     </Text>
-                    <Text className="txt-medium text-ui-fg-subtle">
+                    <Text className="txt-medium text-white">
                       {cart.shipping_address.first_name}{" "}
                       {cart.shipping_address.last_name}
                     </Text>
-                    <Text className="txt-medium text-ui-fg-subtle">
+                    <Text className="txt-medium text-white">
                       {cart.shipping_address.address_1}{" "}
                       {cart.shipping_address.address_2}
                     </Text>
-                    <Text className="txt-medium text-ui-fg-subtle">
+                    <Text className="txt-medium text-white">
                       {cart.shipping_address.postal_code},{" "}
                       {cart.shipping_address.city}
                     </Text>
-                    <Text className="txt-medium text-ui-fg-subtle">
+                    <Text className="txt-medium text-white">
                       {cart.shipping_address.country_code?.toUpperCase()}
                     </Text>
                   </div>
 
                   <div className="flex flex-col w-1/3 " data-testid="shipping-contact-summary">
-                    <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                    <Text className="txt-medium-plus text-white mb-1">
                       Contact
                     </Text>
-                    <Text className="txt-medium text-ui-fg-subtle">
+                    <Text className="text-white">
                       {cart.shipping_address.phone}
                     </Text>
-                    <Text className="txt-medium text-ui-fg-subtle">
+                    <Text className="text-white">
                       {cart.email}
                     </Text>
                   </div>
 
-                  <div className="flex flex-col w-1/3" data-testid="billing-address-summary">
+                  {/* <div className="flex flex-col w-1/3" data-testid="billing-address-summary">
                     <Text className="txt-medium-plus text-ui-fg-base mb-1">
                       Billing Address
                     </Text>
@@ -165,7 +166,7 @@ const Addresses = ({
                         </Text>
                       </>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             ) : (

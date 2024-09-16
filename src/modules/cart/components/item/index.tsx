@@ -24,7 +24,9 @@ type ItemProps = {
 const Item = ({ item, region, type = "full" }: ItemProps) => {
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState<string | null>(null)
-
+  const tableStyle = {
+    backgroundColor: 'transparent',
+  };
   const { handle } = item.variant.product
 
   const changeQuantity = async (quantity: number) => {
@@ -46,7 +48,7 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
   }
 
   return (
-    <Table.Row className="w-full" data-testid="product-row">
+    <Table.Row className="w-full" data-testid="product-row" style={tableStyle}>
       <Table.Cell className="!pl-0 p-4 w-24">
         <LocalizedClientLink
           href={`/products/${handle}`}
@@ -60,7 +62,7 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
       </Table.Cell>
 
       <Table.Cell className="text-left">
-        <Text className="txt-medium-plus text-ui-fg-base" data-testid="product-title">{item.title}</Text>
+        <Text className="txt-medium-plus text-base text-white" data-testid="product-title" >{item.title}</Text>
         <LineItemOptions variant={item.variant} data-testid="product-variant" />
       </Table.Cell>
 
@@ -110,7 +112,7 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
         >
           {type === "preview" && (
             <span className="flex gap-x-1 ">
-              <Text className="text-ui-fg-muted">{item.quantity}x </Text>
+              <Text className="text-white">{item.quantity}x </Text>
               <LineItemUnitPrice item={item} region={region} style="tight" />
             </span>
           )}

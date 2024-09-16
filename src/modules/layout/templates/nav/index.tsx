@@ -1,5 +1,5 @@
 import { Suspense } from "react"
-
+import { ConnectButton2 } from "@modules/layout/components/connect-button"
 import { listRegions } from "@lib/data"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
@@ -24,7 +24,7 @@ export default async function Nav() {
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
               data-testid="nav-store-link"
             >
-              Medusa Store
+            LuxuryVerse
             </LocalizedClientLink>
           </div>
 
@@ -61,6 +61,7 @@ export default async function Nav() {
             >
               <CartButton />
             </Suspense>
+          
           </div>
         </nav>
       </header>

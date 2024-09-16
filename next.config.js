@@ -1,6 +1,6 @@
 const { withStoreConfig } = require("./store-config")
 const store = require("./store.config.json")
-
+const path = require("path")
 /**
  * @type {import('next').NextConfig}
  */
@@ -25,7 +25,31 @@ const nextConfig = withStoreConfig({
         protocol: "https",
         hostname: "medusa-server-testing.s3.us-east-1.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "img.vitkac.com",
+      },
     ],
+  },
+  staticPageGenerationTimeout: 120, // Increase the timeout to 120 seconds
+  webpack: (config, options) => {
+    if (options.isServer) {
+      config.externals = [
+        "@tanstack/react-query", 
+        'pino-pretty', 'lokijs', 'encoding',
+        ...config.externals,
+      ]
+    }
+    config.infrastructureLogging = {
+      level: 'verbose',
+    };
+    const reactQuery = path.resolve(
+      require.resolve("@tanstack/react-query")
+    )
+    config.resolve.alias["@tanstack/react-query"] = reactQuery
+    config.resolve.alias['@/assets'] = path.join(__dirname, 'public/assets');
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src')
+    return config;
   },
 })
 

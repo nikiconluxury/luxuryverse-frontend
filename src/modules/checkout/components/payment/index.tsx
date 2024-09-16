@@ -104,7 +104,7 @@ const Payment = ({
   }, [isOpen])
 
   return (
-    <div className="bg-white">
+    <div className="bg-transparent">
       <div className="flex flex-row items-center justify-between mb-6">
         <Heading
           level="h2"
@@ -218,11 +218,11 @@ const Payment = ({
           {cart && paymentReady && cart.payment_session ? (
             <div className="flex items-start gap-x-1 w-full">
               <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                <Text className="txt-medium-plus text-white mb-1">
                   Payment method
                 </Text>
                 <Text
-                  className="txt-medium text-ui-fg-subtle"
+                  className="txt-medium text-white"
                   data-testid="payment-method-summary"
                 >
                   {paymentInfoMap[cart.payment_session.provider_id]?.title ||
@@ -237,7 +237,7 @@ const Payment = ({
                   )}
               </div>
               <div className="flex flex-col w-1/3">
-                <Text className="txt-medium-plus text-ui-fg-base mb-1">
+                <Text className="txt-medium-plus text-white mb-1">
                   Payment details
                 </Text>
                 <div
@@ -259,11 +259,11 @@ const Payment = ({
             </div>
           ) : paidByGiftcard ? (
             <div className="flex flex-col w-1/3">
-              <Text className="txt-medium-plus text-ui-fg-base mb-1">
+              <Text className="txt-medium-plus text-white mb-1">
                 Payment method
               </Text>
               <Text
-                className="txt-medium text-ui-fg-subtle"
+                className="txt-medium text-white"
                 data-testid="payment-method-summary"
               >
                 Gift card

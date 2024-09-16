@@ -4,9 +4,9 @@ import { Region } from "@medusajs/medusa"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import { Button } from "@medusajs/ui"
 import { isEqual } from "lodash"
-import { useParams } from "next/navigation"
+import { useParams,useRouter  } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
-
+import { ProductOption } from "@medusajs/medusa"
 import { useIntersection } from "@lib/hooks/use-in-view"
 import { addToCart } from "@modules/cart/actions"
 import Divider from "@modules/common/components/divider"
@@ -35,12 +35,31 @@ export default function ProductActions({
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string>>({})
   const [isAdding, setIsAdding] = useState(false)
-
+  const router = useRouter()
   const countryCode = useParams().countryCode as string
 
   const variants = product.variants
-
-  // initialize the option state
+  // const inStockOptions = useMemo(() => {
+  //   const filteredOptions = (product.options || []).map(option => ({
+  //     ...option,
+  //     values: option.values.filter(value =>
+  //       product.variants.some(variant =>
+  //         variant.options?.some(variantOption =>
+  //           variantOption.option_id === option.id &&
+  //           variantOption.value === value.value &&
+  //           (
+  //             !variant.manage_inventory ||
+  //             variant.allow_backorder ||
+  //             (variant.inventory_quantity ?? 0) > 0
+  //           )
+  //         )
+  //       )
+  //     )
+  //   })).filter(option => option.values.length > 0);
+  
+  //   return filteredOptions;
+  // }, [product.options, product.variants]);
+  // // initialize the option state
   useEffect(() => {
     const optionObj: Record<string, string> = {}
 
@@ -83,12 +102,19 @@ export default function ProductActions({
     return variants.find((v) => v.id === variantId)
   }, [options, variantRecord, variants])
 
-  // if product only has one variant, then select it
+  // // if product only has one variant, then select it
   useEffect(() => {
     if (variants.length === 1 && variants[0].id) {
       setOptions(variantRecord[variants[0].id])
     }
   }, [variants, variantRecord])
+  // useEffect(() => {
+  //   if (inStockOptions.length === 1 && inStockOptions[0].values.length === 1) {
+  //     const onlyOption = inStockOptions[0];
+  //     const onlyValue = onlyOption.values[0];
+  //     setOptions({ [onlyOption.id]: onlyValue.value });
+  //   }
+  // }, [inStockOptions]);
 
   // update the options when a variant is selected
   const updateOptions = (update: Record<string, string>) => {
@@ -133,7 +159,13 @@ export default function ProductActions({
     })
 
     setIsAdding(false)
+    router.push('/cart')
+    router.refresh()
   }
+  console.log(product)
+  const isOutOfStock = !inStock;
+  const isDisabled = !variant || !!disabled || isAdding;
+  const shouldBeRed = isOutOfStock && !isDisabled;
 
   return (
     <>
@@ -142,10 +174,12 @@ export default function ProductActions({
           {product.variants.length > 1 && (
             <div className="flex flex-col gap-y-4">
               {(product.options || []).map((option) => {
+              {/* {inStockOptions.map((option) => { */}
                 return (
                   <div key={option.id}>
                     <OptionSelect
                       option={option}
+                      
                       current={options[option.id]}
                       updateOption={updateOptions}
                       title={option.title}
@@ -164,16 +198,18 @@ export default function ProductActions({
 
         <Button
           onClick={handleAddToCart}
-          disabled={!inStock || !variant || !!disabled || isAdding}
+          disabled={isOutOfStock || isDisabled}
           variant="primary"
-          className="w-full h-10"
+          className={`w-full h-10 
+          ${shouldBeRed ? '!bg-ui-button-danger-pressed' : ''}
+            `}
           isLoading={isAdding}
           data-testid="add-product-button"
         >
           {!variant
             ? "Select variant"
             : !inStock
-            ? "Out of stock"
+            ? "Out of stock" 
             : "Add to cart"}
         </Button>
         <MobileActions

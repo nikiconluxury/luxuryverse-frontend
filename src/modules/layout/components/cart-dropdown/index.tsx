@@ -79,8 +79,10 @@ const CartDropdown = ({
       <Popover className="relative h-full">
         <Popover.Button className="h-full">
           <LocalizedClientLink
-            className="hover:text-ui-fg-base"
-            href="/cart"
+            // className="hover:text-ui-fg-base"
+            className="text-ui-fg-base"
+            href={`${countryCode}/cart`}
+            // href="/cart"countryCode
             data-testid="nav-cart-link"
           >{`Cart (${totalItems})`}</LocalizedClientLink>
         </Popover.Button>
@@ -96,8 +98,9 @@ const CartDropdown = ({
         >
           <Popover.Panel
             static
-            className="hidden small:block absolute top-[calc(100%+1px)] right-0 bg-white border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
+            className="hidden small:block absolute top-[calc(100%+1px)] right-0 rounded border-x border-b border-gray-200 w-[420px] text-ui-fg-base"
             data-testid="nav-cart-dropdown"
+            style={{backgroundColor: "#121313" , border: "1px solid #1E1F1F"}}
           >
             <div className="p-4 flex items-center justify-center">
               <h3 className="text-large-semi">Cart</h3>
@@ -124,7 +127,7 @@ const CartDropdown = ({
                         <div className="flex flex-col justify-between flex-1">
                           <div className="flex flex-col flex-1">
                             <div className="flex items-start justify-between">
-                              <div className="flex flex-col overflow-ellipsis whitespace-nowrap mr-4 w-[180px]">
+                              <div className="flex flex-col overflow-ellipsis whitespace-nowrap mr-4 w-[180px] text-white">
                                 <h3 className="text-base-regular overflow-hidden text-ellipsis">
                                   <LocalizedClientLink
                                     href={`/products/${item.variant.product.handle}`}
@@ -165,14 +168,14 @@ const CartDropdown = ({
                       </div>
                     ))}
                 </div>
-                <div className="p-4 flex flex-col gap-y-4 text-small-regular">
+                <div className="p-4 flex flex-col gap-y-4 text-small-regular text-white">
                   <div className="flex items-center justify-between">
-                    <span className="text-ui-fg-base font-semibold">
+                    <span className="text-white font-semibold">
                       Subtotal{" "}
                       <span className="font-normal">(excl. taxes)</span>
                     </span>
                     <span
-                      className="text-large-semi"
+                      className="text-large-semi text-white"
                       data-testid="cart-subtotal"
                       data-value={cartState.subtotal || 0}
                     >
@@ -196,8 +199,8 @@ const CartDropdown = ({
               </>
             ) : (
               <div>
-                <div className="flex py-16 flex-col gap-y-4 items-center justify-center">
-                  <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full text-white">
+                <div className="flex py-16 flex-col gap-y-4 items-center justify-center text-white">
+                  <div className="bg-gray-900 text-small-regular flex items-center justify-center w-6 h-6 rounded-full">
                     <span>0</span>
                   </div>
                   <span>Your shopping bag is empty.</span>

@@ -74,10 +74,11 @@ const MobileActions: React.FC<MobileActionsProps> = ({
           leaveTo="opacity-0"
         >
           <div
-            className="bg-white flex flex-col gap-y-3 justify-center items-center text-large-regular p-4 h-full w-full border-t border-gray-200"
+            className="flex flex-col gap-y-3 justify-center items-center text-large-regular p-4 h-full w-full border-t border-gray-200"
             data-testid="mobile-actions"
+            style={{backgroundColor: '#121313'}}
           >
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center gap-x-2 text-white">
               <span data-testid="mobile-title">{product.title}</span>
               <span>—</span>
               {selectedPrice ? (
@@ -173,7 +174,9 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                       <X />
                     </button>
                   </div>
-                  <div className="bg-white px-6 py-12">
+                  <div className="px-6 py-12"
+                  style={{backgroundColor: '#1E1F1F'}}
+                    >
                     {product.variants.length > 1 && (
                       <div className="flex flex-col gap-y-6">
                         {(product.options || []).map((option) => {

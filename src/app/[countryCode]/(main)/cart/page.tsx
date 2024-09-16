@@ -37,6 +37,7 @@ const fetchCart = async () => {
   cart.checkout_step = cart && getCheckoutStep(cart)
 
   return cart
+  
 }
 
 export default async function Cart() {

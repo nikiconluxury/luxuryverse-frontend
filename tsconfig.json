@@ -26,6 +26,15 @@
       }
     ]
   },
+  "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/assets/*": [
+        "./public/assets/*"
+      ],
+      
+    },
   "include": [
     "next-env.d.ts",
     "**/*.ts",

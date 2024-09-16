@@ -2,7 +2,7 @@ import { Table } from "@medusajs/ui"
 
 const SkeletonCartItem = () => {
   return (
-    <Table.Row className="w-full m-4">
+    <Table.Row className="w-full m-4 ">
       <Table.Cell className="!pl-0 p-4 w-24">
         <div className="flex w-24 h-24 p-4 bg-gray-200 rounded-large animate-pulse" />
       </Table.Cell>

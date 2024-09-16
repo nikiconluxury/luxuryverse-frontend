@@ -1,6 +1,17 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "react-toastify/dist/ReactToastify.css";
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+@import "react-modal-video/css/modal-video.css";
+
+@import "../../public/assets/css/animate.min.css";
+@import "../../public/assets/css/bootstrap.min.css";
+@import "../../public/assets/css/default.css";
+@import "../../public/assets/css/fontawesome-all.min.css";
+@import "../../public/assets/css/style.css";
+@import "../../public/assets/css/responsive.css";
 
 @layer utilities {
   /* Chrome, Safari and Opera */
@@ -109,4 +120,70 @@
   .text-3xl-semi {
     @apply text-[32px] leading-[44px] font-semibold;
   }
+
+}
+/* Base styles */
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Small devices (landscape phones, 350px and up) */
+@media (min-width: 350px) {
+  .container {
+    max-width: 100%;
+  }
+}
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* XXX-Large devices (extra large desktops, 1920px and up) */
+@media (min-width: 1920px) {
+  .container {
+    max-width: 80%;
+  }
+}
+.breadcrumb-content .title {
+  font-size: 60px;
+  margin-bottom: 25px;
+  letter-spacing: -1.8px;
+  font-weight: 600;
+}
+.inactive {
+  display: none; /* This hides the element */
 }

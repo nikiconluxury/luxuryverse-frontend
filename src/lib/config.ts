@@ -11,3 +11,4 @@ export const medusaClient = new Medusa({
   baseUrl: MEDUSA_BACKEND_URL,
   maxRetries: 3,
 })
+export const projectId = process.env.NEXT_PUBLIC_PROJECT_ID

@@ -1,7 +1,7 @@
 import { Region } from "@medusajs/medusa"
 import { notFound } from "next/navigation"
 import { NextRequest, NextResponse } from "next/server"
-
+import { getToken } from 'next-auth/jwt';
 const BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
 const DEFAULT_REGION = process.env.NEXT_PUBLIC_DEFAULT_REGION || "us"
 
@@ -10,7 +10,7 @@ const regionMapCache = {
   regionMapUpdated: Date.now(),
 }
 
-async function getRegionMap() {
+export async function getRegionMap() {
   const { regionMap, regionMapUpdated } = regionMapCache
 
   if (
@@ -47,7 +47,7 @@ async function getRegionMap() {
  * @param request
  * @param response
  */
-async function getCountryCode(
+export async function getCountryCode(
   request: NextRequest,
   regionMap: Map<string, Region | number>
 ) {
@@ -84,59 +84,47 @@ async function getCountryCode(
  * Middleware to handle region selection and onboarding status.
  */
 export async function middleware(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams
-  const isOnboarding = searchParams.get("onboarding") === "true"
-  const cartId = searchParams.get("cart_id")
-  const checkoutStep = searchParams.get("step")
-  const onboardingCookie = request.cookies.get("_medusa_onboarding")
-  const cartIdCookie = request.cookies.get("_medusa_cart_id")
+  const { pathname, searchParams, origin } = request.nextUrl;
+  const cartId = searchParams.get("cart_id");
+  const checkoutStep = searchParams.get("step");
+  const cartIdCookie = request.cookies.get("_medusa_cart_id");
 
-  const regionMap = await getRegionMap()
+  // Simulate fetching the region map and determine country code
+  const regionMap = await getRegionMap();
+  const countryCode = regionMap && (await getCountryCode(request, regionMap));
+  const urlHasCountryCode = countryCode && pathname.includes(`/${countryCode}`);
 
-  const countryCode = regionMap && (await getCountryCode(request, regionMap))
+  // Public paths check considering country code
+  const publicPaths = [`/${countryCode}`,`/${countryCode}/locked-out`, `/${countryCode}/token-balance`,`/${countryCode}/roadmap`,
+    `/${countryCode}/privacy`,`/${countryCode}/service`,`/${countryCode}/authenticity`,`/${countryCode}/faq`,`/${countryCode}/contact`
+    ,`/${countryCode}/buy`,`/${countryCode}/rwa`,`/${countryCode}/team`,`/${countryCode}/register`];
+  // Get JWT token to check authentication
+  const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
 
-  const urlHasCountryCode =
-    countryCode && request.nextUrl.pathname.split("/")[1].includes(countryCode)
-
-  // check if one of the country codes is in the url
-  if (
-    urlHasCountryCode &&
-    (!isOnboarding || onboardingCookie) &&
-    (!cartId || cartIdCookie)
-  ) {
-    return NextResponse.next()
+  // Redirect logic for non-authenticated access to public pages
+  if (!token && !publicPaths.includes(pathname)) {
+    const redirectUrl = `${origin}/${countryCode}/locked-out`;
+    return NextResponse.redirect(redirectUrl, 307);
   }
 
-  const redirectPath =
-    request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
-
-  const queryString = request.nextUrl.search ? request.nextUrl.search : ""
-
-  let redirectUrl = request.nextUrl.href
-
-  let response = NextResponse.redirect(redirectUrl, 307)
-
-  // If no country code is set, we redirect to the relevant region.
+  // If no country code in the URL and we have a country code, redirect to the appropriate region
   if (!urlHasCountryCode && countryCode) {
-    redirectUrl = `${request.nextUrl.origin}/${countryCode}${redirectPath}${queryString}`
-    response = NextResponse.redirect(`${redirectUrl}`, 307)
+    const redirectUrl = `${origin}/${countryCode}${pathname}${request.nextUrl.search}`;
+    return NextResponse.redirect(redirectUrl, 307);
   }
 
-  // If a cart_id is in the params, we set it as a cookie and redirect to the address step.
-  if (cartId && !checkoutStep) {
-    redirectUrl = `${redirectUrl}&step=address`
-    response = NextResponse.redirect(`${redirectUrl}`, 307)
-    response.cookies.set("_medusa_cart_id", cartId, { maxAge: 60 * 60 * 24 })
+  // If a `cart_id` is in the params and not in the checkout step, set it as a cookie and redirect
+  if (cartId && !checkoutStep && !cartIdCookie) {
+    const redirectUrl = `${origin}${pathname}?cart_id=${cartId}&step=address`;
+    const response = NextResponse.redirect(redirectUrl, 307);
+    response.cookies.set("_medusa_cart_id", cartId, { maxAge: 60 * 60 * 24, path: '/' });
+    return response;
   }
 
-  // Set a cookie to indicate that we're onboarding. This is used to show the onboarding flow.
-  if (isOnboarding) {
-    response.cookies.set("_medusa_onboarding", "true", { maxAge: 60 * 60 * 24 })
-  }
-
-  return response
+  // Proceed with the response if no conditions apply
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: ["/((?!api|_next/static|favicon.ico).*)"],
-}
+};

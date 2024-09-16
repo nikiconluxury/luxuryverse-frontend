@@ -43,12 +43,33 @@ export default async function ProductPreview({
           size="full"
           isFeatured={isFeatured}
         />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">{productPreview.title}</Text>
-          <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-          </div>
-        </div>
+        {/* <div className="flex-col flex items-center txt-compact-medium mt-4 justify-between">
+          <Text className="text-white text-center mb-2 text-lg font-bold">{productPreview.subtitle}</Text>
+          <Text className="text-white text-center mb-2 text-base" data-testid="product-title">{productPreview.title}</Text> */}
+          {/* <div className="flex items-center gap-x-2"> */}
+            {/* {cheapestPrice && <PreviewPrice price={cheapestPrice} />} */}
+          {/* </div> */}
+        {/* </div> */}
+        <div className="grid grid-rows-[auto_4rem_auto] gap-2 items-center text-center h-full mt-4">
+  <div className="w-full">
+    {productPreview.subtitle ? (
+      <Text className="text-white text-lg font-bold">{productPreview.subtitle}</Text>
+    ) : (
+      <div className="h-6"></div> // Placeholder height when no subtitle
+    )}
+  </div>
+  <div className="w-full h-16 flex flex-col justify-center overflow-hidden">
+    <Text 
+      className="text-white text-base line-clamp-2" 
+      data-testid="product-title"
+    >
+      {productPreview.title}
+    </Text>
+  </div>
+  <div className="w-full">
+    {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+  </div>
+</div>
       </div>
     </LocalizedClientLink>
   )

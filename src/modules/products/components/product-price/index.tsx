@@ -33,12 +33,15 @@ export default function ProductPrice({
       <span
         className={clx("text-xl-semi", {
           "text-ui-fg-interactive": selectedPrice.price_type === "sale",
+          
         })}
+        style={{color: "white"}}
       >
         {!variant && "From "}
         <span
           data-testid="product-price"
           data-value={selectedPrice.calculated_price_number}
+          style={{color: "white"}}
         >
           {selectedPrice.calculated_price}
         </span>

@@ -42,7 +42,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
             <Radio
               checked={selectedPaymentOptionId === paymentSession.provider_id}
             />
-            <Text className="text-base-regular">
+            <Text className="text-base-regular text-white">
               {paymentInfoMap[paymentSession.provider_id]?.title ||
                 paymentSession.provider_id}
             </Text>
@@ -60,7 +60,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
               <PaymentTest className="hidden small:block" />
             )}
           </div>
-          <span className="justify-self-end text-ui-fg-base">
+          <span className="justify-self-end text-white">
             {paymentInfoMap[paymentSession.provider_id]?.icon}
           </span>
         </div>

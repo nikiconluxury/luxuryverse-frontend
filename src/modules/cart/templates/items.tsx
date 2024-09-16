@@ -10,15 +10,18 @@ type ItemsTemplateProps = {
 }
 
 const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
+  const tableStyle = {
+    backgroundColor: 'transparent',
+  };
   return (
     <div>
       <div className="pb-3 flex items-center">
         <Heading className="text-[2rem] leading-[2.75rem]">Cart</Heading>
       </div>
-      <Table>
-        <Table.Header className="border-t-0">
-          <Table.Row className="text-ui-fg-subtle txt-medium-plus">
-            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
+      <Table >
+        <Table.Header className="border-t-0" >
+          <Table.Row className="text-white txt-medium-plus" style={tableStyle}>
+            <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell >
             <Table.HeaderCell></Table.HeaderCell>
             <Table.HeaderCell>Quantity</Table.HeaderCell>
             <Table.HeaderCell className="hidden small:table-cell">
@@ -29,7 +32,7 @@ const ItemsTemplate = ({ items, region }: ItemsTemplateProps) => {
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        <Table.Body>
+        <Table.Body >
           {items && region
             ? items
                 .sort((a, b) => {
