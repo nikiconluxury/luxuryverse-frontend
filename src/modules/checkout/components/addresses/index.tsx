@@ -51,10 +51,11 @@ const Addresses = ({
 
   return (
     <div className="bg-transparent">
-      <div className="flex flex-row items-center justify-between mb-6">
+      {/* <div className="flex flex-row items-center justify-between mb-6"> */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
         <Heading
           level="h2"
-          className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
+          className="flex flex-row text-2xl sm:text-3xl-regular gap-x-2 items-baseline mb-2 sm:mb-0"
           // style={{'color': 'black'}}//TODO: remove this when checkout upgraded
         >
           Shipping Address
@@ -94,8 +95,8 @@ const Addresses = ({
 
                 <BillingAddress cart={cart} countryCode={countryCode} />
               </div>
-            )} */}
-            <SubmitButton className="mt-6" data-testid="submit-address-button">Continue to delivery</SubmitButton>
+            )} */}  
+            <SubmitButton className="mt-6 w-full sm:w-auto" data-testid="submit-address-button">Continue to delivery</SubmitButton>
             <ErrorMessage error={message} data-testid="address-error-message" />
           </div>
         </form>

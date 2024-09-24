@@ -38,7 +38,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {topLabel && (
           <Label className="mb-2 txt-compact-medium-plus">{topLabel}</Label>
         )}
-        <div className="flex relative z-0 w-full txt-compact-medium text-ui-fg-base">
+        <div className="flex relative z-0 w-full txt-compact text-ui-fg-base">
           <input
             type={inputType}
             name={name}

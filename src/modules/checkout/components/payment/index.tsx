@@ -105,11 +105,11 @@ const Payment = ({
 
   return (
     <div className="bg-transparent">
-      <div className="flex flex-row items-center justify-between mb-6">
+       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
         <Heading
           level="h2"
           className={clx(
-            "flex flex-row text-3xl-regular gap-x-2 items-baseline",
+            "flex flex-row text-2xl sm:text-3xl-regular gap-x-2 items-baseline mb-2 sm:mb-0",
             {
               "opacity-50 pointer-events-none select-none":
                 !isOpen && !paymentReady,
@@ -201,7 +201,7 @@ const Payment = ({
 
           <Button
             size="large"
-            className="mt-6"
+            className="mt-6 w-full sm:w-auto"
             onClick={handleSubmit}
             isLoading={isLoading}
             disabled={

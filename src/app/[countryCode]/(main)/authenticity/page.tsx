@@ -13,7 +13,7 @@ const index = () => {
     <Wrapper>
       {/* <Breadcrumb title="Authenticity" /> */}
       <AuthArea  />
-        <Team />
+        {/* <Team /> */}
 <DocumentDownload />
       {/* <FooterOne /> */}
       

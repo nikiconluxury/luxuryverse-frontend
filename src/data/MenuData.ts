@@ -165,9 +165,9 @@ const menu_data: MenuItem[] = [
   createMenuItem(1, "nav_1", "Home", "/", false),
   createMenuItem(5, "nav_1", "How to Buy", "/buy", false),
   createMenuItem(3, "nav_1", "Roadmap", "/roadmap", false),
-  createMenuItem(4, "nav_1", "Authenticity", "/authenticity", false),
+  createMenuItem(4, "nav_1", "About Us", "/authenticity", false),
   createMenuItem(2, "nav_1", "RWA", "/rwa", false),
-  createMenuItem(6, "nav_1", "Team", "/team", false),
+  // createMenuItem(6, "nav_1", "Team", "/team", false),
   createMenuItem(7, "nav_1", "Shop", "/store", false), 
   // createMenuItem(8, "nav_1", "Cart", "/cart", false), 
   

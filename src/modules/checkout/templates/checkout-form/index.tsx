@@ -43,7 +43,7 @@ export default async function CheckoutForm() {
 
   return (
     <div>
-      <div className="p-8 w-full grid rounded-lg grid-cols-1 gap-y-8" style={{'backgroundColor':"#1E1F1F"}}>
+      <div className="p-8 w-full grid rounded-lg grid-cols-1 gap-y-8" style={{'backgroundColor':"#121313"}}>
         <div>
           <Addresses cart={cart} customer={customer} />
         </div>
